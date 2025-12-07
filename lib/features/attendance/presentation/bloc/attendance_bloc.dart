@@ -1,4 +1,5 @@
 import 'package:camera/camera.dart';
+import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:test_face_recognition/core/error/failures.dart';
 import 'package:test_face_recognition/features/attendance/domain/entities/face_attributes.dart';
