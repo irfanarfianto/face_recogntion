@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:test_face_recognition/features/attendance/presentation/bloc/attendance_bloc.dart';
 import 'package:test_face_recognition/features/attendance/presentation/pages/analytics_dashboard_page.dart';
 import 'package:test_face_recognition/features/attendance/presentation/pages/attendance_page.dart';
 import 'package:test_face_recognition/features/attendance/presentation/pages/logs_page.dart';
@@ -6,8 +8,74 @@ import 'package:test_face_recognition/features/attendance/presentation/pages/man
 import 'package:test_face_recognition/features/attendance/presentation/pages/register_page.dart';
 import 'package:test_face_recognition/features/attendance/presentation/pages/settings_page.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    // Load users to check if any exist
+    context.read<AttendanceBloc>().add(LoadUsersEvent());
+  }
+
+  Future<void> _handleAttendance(BuildContext context) async {
+    // Load users first
+    context.read<AttendanceBloc>().add(LoadUsersEvent());
+
+    // Wait a bit for state to update
+    await Future.delayed(const Duration(milliseconds: 300));
+
+    if (!mounted) return;
+
+    final state = context.read<AttendanceBloc>().state;
+
+    // Check if there are any registered users
+    if (state.allUsers.isEmpty) {
+      _showNoUsersDialog(context);
+    } else {
+      // Navigate to attendance page
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const AttendancePage()),
+      );
+    }
+  }
+
+  void _showNoUsersDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        icon: const Icon(Icons.person_off, size: 48, color: Colors.orange),
+        title: const Text('Belum Ada User Terdaftar'),
+        content: const Text(
+          'Silakan daftarkan wajah terlebih dahulu sebelum melakukan absensi.',
+          textAlign: TextAlign.center,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Batal'),
+          ),
+          FilledButton.icon(
+            onPressed: () {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const RegisterPage()),
+              );
+            },
+            icon: const Icon(Icons.person_add),
+            label: const Text('Daftar Sekarang'),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,12 +143,7 @@ class HomePage extends StatelessWidget {
                       title: 'Absen',
                       icon: Icons.face_retouching_natural,
                       color: Theme.of(context).colorScheme.primary,
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const AttendancePage(),
-                        ),
-                      ),
+                      onTap: () => _handleAttendance(context),
                       isPrimary: true,
                     ),
                     _buildActionCard(
