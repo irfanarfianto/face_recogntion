@@ -51,9 +51,6 @@ class AttendanceRepositoryImpl implements AttendanceRepository {
 
       double threshold = await getThreshold();
 
-      print(
-        'Closest User: ${closestUser?.name}, Distance: $minDistance, Threshold: $threshold',
-      );
 
       if (closestUser != null && minDistance < threshold) {
         // Record attendance log

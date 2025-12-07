@@ -5,7 +5,7 @@ class FacePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     // 1. Define the Overlay Color
     final paint = Paint()
-      ..color = Colors.black.withOpacity(0.5)
+      ..color = Colors.black.withValues(alpha:0.5)
       ..style = PaintingStyle.fill;
 
     // 2. Define Dimensions

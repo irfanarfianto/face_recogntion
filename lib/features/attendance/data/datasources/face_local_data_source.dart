@@ -26,9 +26,7 @@ class FaceLocalDataSourceImpl implements FaceLocalDataSource {
       _interpreter = await Interpreter.fromAsset(
         'assets/model/tflite/mobilefacenet.tflite',
       );
-      print('Model loaded successfully');
     } catch (e) {
-      print('Failed to load model: $e');
       throw const FaceDetectionFailure('Failed to load face recognition model');
     }
   }

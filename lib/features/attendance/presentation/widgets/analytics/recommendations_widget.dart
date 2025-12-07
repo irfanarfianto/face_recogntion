@@ -72,7 +72,7 @@ class RecommendationsWidget extends StatelessWidget {
                   ],
                 ),
               );
-            }).toList(),
+            }),
           ],
         ),
       ),

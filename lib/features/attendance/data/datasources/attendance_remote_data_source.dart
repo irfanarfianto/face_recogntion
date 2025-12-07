@@ -82,7 +82,6 @@ class AttendanceRemoteDataSourceImpl implements AttendanceRemoteDataSource {
 
       return data.map((e) => AttendanceLogModel.fromJson(e)).toList();
     } catch (e) {
-      print('Error fetching logs: $e');
       throw const ServerFailure('Failed to fetch logs from Supabase');
     }
   }
@@ -114,7 +113,6 @@ class AttendanceRemoteDataSourceImpl implements AttendanceRemoteDataSource {
         'val_threshold': threshold,
       });
     } catch (e) {
-      print('Error recording attendance: $e');
       // throw const ServerFailure('Failed to record attendance');
     }
   }
@@ -141,7 +139,6 @@ class AttendanceRemoteDataSourceImpl implements AttendanceRemoteDataSource {
           .getPublicUrl(path);
       return imageUrl;
     } catch (e) {
-      print('Upload Error: $e');
       return null; // Return null if upload crashes, so we can still save record without image
     }
   }

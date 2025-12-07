@@ -13,6 +13,17 @@ class LoadingAnalysisPage extends StatefulWidget {
 }
 
 class _LoadingAnalysisPageState extends State<LoadingAnalysisPage> {
+  Future<void> _navigateAfterDelay() async {
+    await Future.delayed(const Duration(seconds: 2));
+
+    if (!mounted) return;
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const AttendancePage()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,16 +104,7 @@ class _LoadingAnalysisPageState extends State<LoadingAnalysisPage> {
                 ),
               );
 
-              Future.delayed(const Duration(seconds: 2), () {
-                if (mounted) {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const AttendancePage(),
-                    ),
-                  );
-                }
-              });
+              _navigateAfterDelay();
             }
           }
         },

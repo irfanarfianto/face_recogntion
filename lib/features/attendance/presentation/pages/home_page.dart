@@ -23,22 +23,27 @@ class _HomePageState extends State<HomePage> {
     context.read<AttendanceBloc>().add(LoadUsersEvent());
   }
 
-  Future<void> _handleAttendance(BuildContext context) async {
+  Future<void> _handleAttendance() async {
+    // Capture bloc before async
+    final bloc = context.read<AttendanceBloc>();
+
     // Load users first
-    context.read<AttendanceBloc>().add(LoadUsersEvent());
+    bloc.add(LoadUsersEvent());
 
     // Wait a bit for state to update
     await Future.delayed(const Duration(milliseconds: 300));
 
     if (!mounted) return;
 
-    final state = context.read<AttendanceBloc>().state;
+    final state = bloc.state;
 
     // Check if there are any registered users
     if (state.allUsers.isEmpty) {
-      _showNoUsersDialog(context);
+      if (!mounted) return;
+      _showNoUsersDialog();
     } else {
       // Navigate to attendance page
+      if (!mounted) return;
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const AttendancePage()),
@@ -46,7 +51,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void _showNoUsersDialog(BuildContext context) {
+  void _showNoUsersDialog() {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -80,7 +85,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
@@ -143,7 +148,7 @@ class _HomePageState extends State<HomePage> {
                       title: 'Absen',
                       icon: Icons.face_retouching_natural,
                       color: Theme.of(context).colorScheme.primary,
-                      onTap: () => _handleAttendance(context),
+                      onTap: _handleAttendance,
                       isPrimary: true,
                     ),
                     _buildActionCard(
@@ -224,7 +229,7 @@ class _HomePageState extends State<HomePage> {
   }) {
     return Card(
       elevation: isPrimary ? 4 : 0,
-      shadowColor: isPrimary ? color.withOpacity(0.4) : null,
+      shadowColor: isPrimary ? color.withValues(alpha: 0.4) : null,
       color: Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
@@ -243,7 +248,7 @@ class _HomePageState extends State<HomePage> {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: color.withOpacity(0.1),
+                  color: color.withValues(alpha: 0.1),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(icon, size: 32, color: color),

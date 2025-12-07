@@ -96,7 +96,7 @@ class ThresholdAnalysisWidget extends StatelessWidget {
                   ],
                 ),
               );
-            }).toList(),
+            }),
           ],
         ),
       ),

@@ -186,7 +186,7 @@ class ResultDetailPage extends StatelessWidget {
             color: Colors.grey[200],
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.05),
+                color: Colors.black.withValues(alpha: 0.05),
                 blurRadius: 10,
                 offset: const Offset(0, 4),
               ),
@@ -253,7 +253,7 @@ class ResultDetailPage extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.blue[50], // Very light blue
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.blue.withOpacity(0.1)),
+        border: Border.all(color: Colors.blue.withValues(alpha:0.1)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

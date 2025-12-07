@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:test_face_recognition/features/attendance/domain/entities/user_entity.dart';
 import 'package:test_face_recognition/features/attendance/presentation/bloc/attendance_bloc.dart';
 
 class ManageUsersPage extends StatefulWidget {
@@ -102,7 +103,7 @@ class _ManageUsersPageState extends State<ManageUsersPage> {
             child: ListView.separated(
               padding: const EdgeInsets.all(16),
               itemCount: state.allUsers.length,
-              separatorBuilder: (_, __) => const SizedBox(height: 12),
+              separatorBuilder: (_, _) => const SizedBox(height: 12),
               itemBuilder: (context, index) {
                 final user = state.allUsers[index];
                 return _buildUserCard(user, context);
@@ -114,7 +115,7 @@ class _ManageUsersPageState extends State<ManageUsersPage> {
     );
   }
 
-  Widget _buildUserCard(user, BuildContext context) {
+  Widget _buildUserCard(UserEntity user, BuildContext context) {
     return Card(
       elevation: 0,
       shape: RoundedRectangleBorder(

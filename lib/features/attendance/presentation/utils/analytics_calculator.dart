@@ -98,6 +98,8 @@ class AnalyticsCalculator {
       'matchCount': matchCount,
       'failCount': failCount,
       'successRate': totalScans > 0 ? (matchCount / totalScans * 100) : 0.0,
+      'currentAccepted': currentAccepted,
+      'currentRejected': currentRejected,
       'avgScore': avgScore,
       'minScore': minScore,
       'maxScore': maxScore,

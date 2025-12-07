@@ -68,7 +68,7 @@ class ScoreDistributionWidget extends StatelessWidget {
                   ],
                 ),
               );
-            }).toList(),
+            }),
           ],
         ),
       ),

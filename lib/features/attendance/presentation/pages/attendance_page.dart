@@ -50,17 +50,17 @@ class _AttendancePageState extends State<AttendancePage> {
 
   Future<void> _setBrightness() async {
     try {
-      await ScreenBrightness().setScreenBrightness(1.0);
+      await ScreenBrightness().setApplicationScreenBrightness(1.0);
     } catch (e) {
-      print("Failed to set brightness: $e");
+      debugPrint("Failed to set brightness: $e");
     }
   }
 
   Future<void> _resetBrightness() async {
     try {
-      await ScreenBrightness().resetScreenBrightness();
+      await ScreenBrightness().resetApplicationScreenBrightness();
     } catch (e) {
-      print("Failed to reset brightness: $e");
+      debugPrint("Failed to reset brightness: $e");
     }
   }
 
@@ -146,7 +146,7 @@ class _AttendancePageState extends State<AttendancePage> {
         }
       }
     } catch (e) {
-      print("Error processing face: $e");
+      debugPrint("Error processing face: $e");
     } finally {
       if (mounted &&
           _controller != null &&
@@ -180,7 +180,7 @@ class _AttendancePageState extends State<AttendancePage> {
         );
       }
     } catch (e) {
-      print("Error taking picture: $e");
+      debugPrint("Error taking picture: $e");
       // If error, restart stream
       _isBusy = false;
       _livenessVerified = false; // Reset liveness on error retry
@@ -238,7 +238,7 @@ class _AttendancePageState extends State<AttendancePage> {
                           vertical: 12,
                         ),
                         decoration: BoxDecoration(
-                          color: Colors.black54.withOpacity(0.7),
+                          color: Colors.black54.withValues(alpha: 0.7),
                           borderRadius: BorderRadius.circular(30),
                           border: Border.all(color: Colors.white24),
                         ),

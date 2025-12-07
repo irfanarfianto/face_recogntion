@@ -1,4 +1,3 @@
-import 'package:bloc/bloc.dart';
 import 'package:camera/camera.dart';
 import 'package:equatable/equatable.dart';
 import 'package:test_face_recognition/core/error/failures.dart';
