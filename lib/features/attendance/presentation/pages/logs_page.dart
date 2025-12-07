@@ -130,19 +130,24 @@ class _LogsPageState extends State<LogsPage> {
                         vertical: 4,
                       ),
                       decoration: BoxDecoration(
-                        color: (log.matchScore ?? 1.0) < state.threshold
+                        color:
+                            (log.matchScore ?? 1.0) <
+                                (log.threshold ?? state.threshold)
                             ? Colors.green[50]
                             : Colors.red[50],
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Text(
-                        (log.matchScore ?? 1.0) < state.threshold
+                        (log.matchScore ?? 1.0) <
+                                (log.threshold ?? state.threshold)
                             ? "MATCH"
                             : "FAIL",
                         style: TextStyle(
                           fontSize: 10,
                           fontWeight: FontWeight.bold,
-                          color: (log.matchScore ?? 1.0) < state.threshold
+                          color:
+                              (log.matchScore ?? 1.0) <
+                                  (log.threshold ?? state.threshold)
                               ? Colors.green
                               : Colors.red,
                         ),

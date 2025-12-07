@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test_face_recognition/features/attendance/presentation/pages/analytics_dashboard_page.dart';
 import 'package:test_face_recognition/features/attendance/presentation/pages/attendance_page.dart';
 import 'package:test_face_recognition/features/attendance/presentation/pages/logs_page.dart';
 import 'package:test_face_recognition/features/attendance/presentation/pages/manage_users_page.dart';
@@ -115,6 +116,18 @@ class HomePage extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => const LogsPage(),
+                        ),
+                      ),
+                    ),
+                    _buildActionCard(
+                      context,
+                      title: 'Analytics',
+                      icon: Icons.analytics,
+                      color: Colors.indigo,
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AnalyticsDashboardPage(),
                         ),
                       ),
                     ),
